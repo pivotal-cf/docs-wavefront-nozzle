@@ -1,28 +1,49 @@
 ---
-title: Installing and Configuring YOUR-PRODUCT-NAME
+title: Installing and Configuring Wavefront by VMWare Nozzle for PCF
 owner: Partners
 ---
 
-This topic describes how to install and configure YOUR-PRODUCT-NAME.
+This topic describes how to install and configure Wavefront by VMWare Nozzle for PCF.
 
-##<a id='install'></a> Install and Configure YOUR-PRODUCT-NAME
+##<a id='install'></a> Install and Configure Wavefront by VMWare Nozzle for PCF
 
 1. Download the product file from Pivotal Network.
 
-1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file. 
+1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-1. Under the **Import a Product** button, click **+** next to the version number of YOUR-PRODUCT-NAME. 
+1. Under the **Import a Product** button, click **+** next to the version number of Wavefront by VMWare Nozzle for PCF.
 This adds the tile to your staging area.
 
-1. Click the newly added **YOUR-PRODUCT-NAME** tile.
+1. Click the newly added **Wavefront by VMWare Nozzle for PCF** tile.
 
 1. **This portion of the procedure should tell the users how to configure the newly added tile by
 walking them through the sections. Which fields should they fill out? What are the different
-checkboxes? Include relevant screenshots here.** 
+checkboxes? Include relevant screenshots here.**
+
+1. Enter the following in the **Wavefront Proxy Config** section:
+  1. **Wavefront Instance URL**: A URL such as **https://YOUR_INSTANCE.wavefront.com/api**
+  1. **Wavefront API Token**: API access token from the profile page on your Wavefront instance
+  1. **User friendly hostname**: A unique hostname for the proxy such as **COMPANY-pcf-proxy**
+  1. **CF TCP Domain**: A PCF TCP domain name such as **tcp.apps.DOMAIN.io** that the proxy can bind to
+  1. **CF TCP Port**: A global PCF TCP port that is open for routing requests to the Wavefront proxy
+  1. **CF Quota Name**: A CF org quota with at least 20GB memory and a route and port available.
 
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install YOUR-PRODUCT-NAME tile.
+1. Enter the following in the **Wavefront Firehose Nozzle Config** section:
+  1. **CF TCP Domain**: A PCF TCP domain such as **tcp.DOMAIN.io**
+  1. **CF API Hostname**: The PCF API Hostname such as **api.sys.DOMAIN.io**
+  1. **CF UAA Username**: UAA username with a read-only administrative access to the loggregator firehose
+  1. **CF UAA Password**: The corresponding password for the user
+  1. **Skip SSL Verification**: Whether to skip ssl validation.
 
-**If needed, include additional configuration information below. For example, maybe there are
-configuration options not required for installation but which could be useful for certain users.**
+1. Click **Save**.
+
+1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install Wavefront by VMWare Nozzle for PCF tile.
+
+##<a id='marketplace'></a> Configure Service Access for Wavefront Service Broker for PCF
+
+1. Enable the **wavefront-proxy** service for all your users as follows:
+   `cf enable-service-access wavefront-proxy`
+1. To provision a **wavefront-proxy** service instance: `cf create-service wavefront-proxy standard SERVICE_INSTANCE_NAME`
+1. To bind apps to the service instance: `cf bind-service APP_NAME SERVICE_INSTANCE_NAME`

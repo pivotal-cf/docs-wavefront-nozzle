@@ -1,12 +1,12 @@
 ---
-title: Installing and Configuring Wavefront by VMWare Nozzle for PCF
+title: Installing and Configuring Wavefront by VMware Nozzle for PCF
 owner: Partners
 ---
 
-This topic describes how to install and configure Wavefront by VMWare Nozzle for PCF.
+This topic describes how to install and configure Wavefront by VMware Nozzle for PCF.
 
 ##<a id='wf-account'></a> Create a Wavefront Account
-The Wavefront by VMWare Nozzle for PCF requires that you have a Wavefront account with
+The Wavefront by VMware Nozzle for PCF requires that you have a Wavefront account with
 an API access token. If you need an account, contact <a href="mailto:sales@wavefront.com">Wavefront Sales</a>.
 
 ##<a id='uaa-account'></a> Create a UAA User Account
@@ -38,20 +38,20 @@ For information about creating a UAA user, see
 [Creating and Managing Users with the UAA CLI](http://docs.pivotal.io/pivotalcf/adminguide/uaa-user-management.html).
 
 ##<a id='enable-tcp'></a> Enable TCP Routing
-The Wavefront by VMWare Nozzle for PCF requires TCP Routing to be enabled in PCF.
+The Wavefront by VMware Nozzle for PCF requires TCP Routing to be enabled in PCF.
 If needed, refer the [PCF Documentation](https://docs.pivotal.io/pivotalcf/1-11/adminguide/enabling-tcp-routing.html)
 to enable it in your PCF deployment.
 
-##<a id='install'></a> Install and Configure Wavefront by VMWare Nozzle for PCF in Ops Manager
+##<a id='install'></a> Install and Configure Wavefront by VMware Nozzle for PCF in Ops Manager
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
-1. Under the **Import a Product** button, click **+** next to the version number of Wavefront by VMWare Nozzle for PCF.
+1. Under the **Import a Product** button, click **+** next to the version number of Wavefront by VMware Nozzle for PCF.
 This adds the tile to your staging area.
 
-1. Click the newly added **Wavefront by VMWare Nozzle for PCF** tile.
+1. Click the newly added **Wavefront by VMware Nozzle for PCF** tile.
 
 1. Click **Wavefront Proxy Config**.
    ![Configure Proxy](images/config_proxy.png)
@@ -78,7 +78,7 @@ This adds the tile to your staging area.
 
 1. Click **Save**.
 
-1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install Wavefront by VMWare Nozzle for PCF tile.
+1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install Wavefront by VMware Nozzle for PCF tile.
 
 ##<a id='marketplace'></a> Configure Service Instance for Wavefront Service Broker for PCF
 Follow the steps below to enable developers to send app metrics to the Wavefront Proxy:

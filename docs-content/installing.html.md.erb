@@ -37,11 +37,6 @@ Create a UAA user with access to the Firehose and Cloud Controller:
 For information about creating a UAA user, see
 [Creating and Managing Users with the UAA CLI](http://docs.pivotal.io/pivotalcf/adminguide/uaa-user-management.html).
 
-##<a id='enable-tcp'></a> Enable TCP Routing
-The Wavefront by VMware Nozzle for PCF requires TCP Routing to be enabled in PCF.
-If needed, refer the [PCF Documentation](https://docs.pivotal.io/pivotalcf/1-11/adminguide/enabling-tcp-routing.html)
-to enable it in your PCF deployment.
-
 ##<a id='install'></a> Install and Configure Wavefront by VMware Nozzle for PCF in Ops Manager
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
@@ -64,8 +59,6 @@ This adds the tile to your staging area.
       1. Go to bottom of the profile page for the API Token:
       ![API Access Token](images/wf_api_key.png)
   1. **User friendly hostname**: A unique hostname for the proxy such as <code>DOMAIN-pcf-proxy</code>
-  1. **CF TCP Domain**: A PCF TCP domain name such as `tcp.YOUR-APPS-DOMAIN` that the proxy can bind to.
-  1. **CF TCP Port**: A global PCF TCP port that is open for routing requests to the Wavefront Proxy.
   1. **CF Quota Name**: A CF org quota with at least 20&nbsp;GB memory and a route and port available.
 
 1. Click **Save**.
@@ -74,12 +67,11 @@ This adds the tile to your staging area.
    ![Configure Nozzle](images/config_nozzle.png)
 
 1. Enter the following in the **Wavefront Firehose Nozzle Config** section:
-  1. **CF TCP Domain**: A PCF TCP domain such as `tcp.DOMAIN.io`
   1. **CF API Hostname**: The PCF API Hostname such as `api.YOUR-SYSTEM-DOMAIN`
   1. **CF UAA Username/CF UAA Password**: Enter the username and password you created
   in the <a href="#uaa-account">Create a UAA Admin User</a> step, above.
   1. **PCF foundation name**: A user friendly PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
-  1. **Skip SSL Verification**: Check to skip ssl validation. This is useful in non-production environments.
+  1. **Skip SSL Verification**: Check to skip SSL validation. This is useful in non-production environments.
 
 1. Click **Save**.
 

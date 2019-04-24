@@ -56,10 +56,12 @@ This adds the tile to your staging area.
   1. **Wavefront API Token**: API access token from the profile page on your Wavefront instance.
       1. Click the gear icon on the top right in Wavefront
       1. Click your username
-      1. Go to bottom of the profile page for the API Token:
+      1. Click on the **API Access** tab for the API Token:
       ![API Access Token](images/wf_api_key.png)
   1. **User friendly hostname**: A unique hostname for the proxy such as <code>DOMAIN-pcf-proxy</code>
   1. **CF Quota Name**: A CF org quota with at least 20&nbsp;GB memory and a route and port available.
+  1. **Custom Proxy configuration**: Choose <code>Default</code> for the default proxy settings.
+     Optionally, you can override the proxy configuration and preprocessor rules under <code>Custom</code> settings.
 
 1. Click **Save**.
 
@@ -72,6 +74,8 @@ This adds the tile to your staging area.
   in the <a href="#uaa-account">Create a UAA Admin User</a> step, above.
   1. **PCF foundation name**: A user friendly PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
   1. **Skip SSL Verification**: Check to skip SSL validation. This is useful in non-production environments.
+  1. **Metrics White List**: Optional comma separated list of glob patterns such as <code>pcf.container.*</code>. Only metrics with names matching the whitelist are reported.
+  1. **Metrics Black List**: Optional comma separated list of glob patterns. Metrics with names matching the blacklist are dropped.
 
 1. Click **Save**.
 

@@ -60,7 +60,7 @@ This adds the tile to your staging area.
       ![API Access Token](images/wf_api_key.png)
   1. **User friendly hostname**: A unique hostname for the proxy such as <code>DOMAIN-pcf-proxy</code>
   1. **CF Quota Name**: A CF org quota with at least 20&nbsp;GB memory and a route and port available.
-  1. **Custom Proxy configuration**: Choose <code>Default</code> for the default proxy settings.
+  1. **Custom Proxy Configuration**: Choose <code>Default</code> for the default proxy settings.
      Optionally, you can override the proxy configuration and preprocessor rules under <code>Custom</code> settings.
 
 1. Click **Save**.
@@ -74,8 +74,8 @@ This adds the tile to your staging area.
   in the <a href="#uaa-account">Create a UAA Admin User</a> step, above.
   1. **PCF foundation name**: A user friendly PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
   1. **Skip SSL Verification**: Check to skip SSL validation. This is useful in non-production environments.
-  1. **Metrics White List**: Optional comma separated list of glob patterns such as <code>pcf.container.*</code>. Only metrics with names matching the whitelist are reported.
-  1. **Metrics Black List**: Optional comma separated list of glob patterns. Metrics with names matching the blacklist are dropped.
+  1. **Advanced Nozzle Options**: Choose <code>No</code> for the default nozzle settings.
+     Optionally, choose <code>Yes</code> to configure advanced nozzle options such as filters, number of nozzle instances etc.
 
 1. Click **Save**.
 

@@ -1,39 +1,39 @@
 ---
-title: Wavefront by VMware Nozzle for Pivotal Platform
+title: VMware Tanzu Observability by Wavefront Nozzle
 owner: Partners
 ---
 
-This documentation describes the Wavefront by VMware Nozzle integration for Pivotal Platform.
-Use this integration to monitor the health and performance of your Pivotal Platform deployment and apps using Wavefront.
+This documentation describes the Wavefront by VMware Nozzle integration for VMware Tanzu.
+Use this integration to monitor the health and performance of your VMware Tanzu deployment and apps using Wavefront.
 
-The integration retrieves metrics about your Pivotal Platform deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
+The integration retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
 Additionally, the integration also provides a mechanism for developers to send app metrics to Wavefront.
 
 ## <a id='overview'></a>Overview
 
 Wavefront is a cloud-hosted service where you send your time-series (metric) data –
-from Telegraf, CollectD, StatsD, JMX, Ruby’s logger, AWS, Pivotal Platform, etc.
+from Telegraf, CollectD, StatsD, JMX, Ruby’s logger, AWS, VMware Tanzu, etc.
 
 You can then perform arbitrary mathematical operations on any number of those series,
 render charts to see anomalies or KPI dashboards, and ultimately create truly intelligent alerts to proactively watch over your entire stack.
 
-The Wavefront by VMware Nozzle for Pivotal Platform tile includes three components:
+The VMware Tanzu Observability by Wavefront Nozzle tile includes three components:
 
-  * A Wavefront Nozzle that retrieves metrics about your Pivotal Platform deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
+  * A Wavefront Nozzle that retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
   * A Wavefront Proxy that sends metrics to Wavefront in a secure, fast and reliable manner.
-  * A Wavefront Service Broker for Pivotal Platform that enables developers to send their app metrics to Wavefront.
+  * A Wavefront Service Broker for VMware Tanzu that enables developers to send their app metrics to Wavefront.
 
-The Wavefront Service Broker for Pivotal Platform exposes service plans on the Marketplace.
+The Wavefront Service Broker for VMware Tanzu exposes service plans on the Marketplace.
 Developers can create service plan instances using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI) and bind them to their apps.
 
-Creating a Wavefront Proxy for Pivotal Platform service instance and binding it to an app provides
+Creating a Wavefront Proxy for VMware Tanzu service instance and binding it to an app provides
 the routing information of a Wavefront proxy to the app.
 This lets developers send app metrics to Wavefront through the proxy.
 
-Wavefront's integration with Pivotal Platform includes:
+Wavefront's integration with VMware Tanzu includes:
 
-   * Summary visualization of key Pivotal Platform metrics
-   * Built-in Pivotal Platform dashboards with configurable alerts
+   * Summary visualization of key VMware Tanzu metrics
+   * Built-in VMware Tanzu dashboards with configurable alerts
    * Ability to handle millions of metrics per second
 
 For more information about Wavefront by VMware, see https://wavefront.com.
@@ -41,16 +41,16 @@ For more information about Wavefront by VMware, see https://wavefront.com.
 
 ## <a id='features'></a>Key Features
 
-Wavefront by VMware Nozzle for Pivotal Platform includes the following key features:
+VMware Tanzu Observability by Wavefront Nozzle includes the following key features:
 
-* Send metrics about your Pivotal Platform deployment to Wavefront.
-* Bind Wavefront to any app running on Pivotal Platform
+* Send metrics about your VMware Tanzu deployment to Wavefront.
+* Bind Wavefront to any app running on VMware Tanzu
 
 
 ## <a id="snapshot"></a>Product Snapshot
 
 
-The following table provides version and version-support information about Wavefront by VMware Nozzle for Pivotal Platform.
+The following table provides version and version-support information about VMware Tanzu Observability by Wavefront Nozzle.
 
 <table class="nice">
     <th>Element</th>
@@ -72,7 +72,7 @@ The following table provides version and version-support information about Wavef
         <td>v2.5.x, v2.6.x, v2.7.x and v2.8.x</td>
     </tr>
     <tr>
-        <td>Compatible Pivotal Application Service version(s)</td>
+        <td>Compatible VMware Tanzu Application Service for VMs version(s)</td>
         <td>v2.5.x, v2.6.x, v2.7.x and v2.8.x</td>
     </tr>
     <tr>
@@ -88,11 +88,11 @@ The following table provides version and version-support information about Wavef
 
 ## <a id="reqs"></a>Requirements
 
-Wavefront by VMware Nozzle for Pivotal Platform has the following requirements:
+VMware Tanzu Observability by Wavefront Nozzle has the following requirements:
 
 + Read-only administrative access to the Doppler Firehose and Cloud Controller.
 + A Wavefront account and API token.
-+ A Pivotal Platform Quota with at least 8G of available memory.
++ A VMware Tanzu Quota with at least 8G of available memory.
 
 ## <a id="feedback"></a>Feedback
 

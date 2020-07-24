@@ -9,34 +9,6 @@ This topic describes how to install and configure VMware Tanzu Observability by 
 The VMware Tanzu Observability by Wavefront Nozzle requires that you have a Wavefront account with
 an API access token. If you need an account, contact <a href="mailto:sales@wavefront.com">Wavefront Sales</a>.
 
-##<a id='uaa-account'></a> Create a UAA User Account
-
-Create a UAA user with access to the Firehose and Cloud Controller:
-
-1. Target your system with the UAA CLI (UAAC):
-   ```
-   $ uaac target https://uaa.YOUR-SYSTEM-DOMAIN
-   ```
-1. Run the following command to authenticate and obtain an access token for the admin client from the UAA server.
-   ```
-   $ uaac token client get admin -s ADMIN-CLIENT-CREDENTIALS-SECRET
-   ```
-1. Create a Wavefront Nozzle user with the password of your choosing.
-   ```
-   $ uaac -t user add wavefront-nozzle --password PASSWORD --emails na
-   ```
-1. Add the user to the Cloud Controller Admin Read-Only group.
-   ```
-   uaac -t member add cloud_controller.admin_read_only wavefront-nozzle
-   ```
-1. Add the user to the Doppler Firehose group.
-   ```
-   $ uaac -t member add doppler.firehose wavefront-nozzle
-   ```
-
-For information about creating a UAA user, see
-[Creating and Managing Users with the UAA CLI](http://docs.pivotal.io/pivotalcf/adminguide/uaa-user-management.html).
-
 ##<a id='install'></a> Install and Configure VMware Tanzu Observability by Wavefront Nozzle in Ops Manager
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
@@ -69,10 +41,6 @@ This adds the tile to your staging area.
    ![Configure Nozzle](images/config_nozzle.png)
 
 1. Enter the following in the **Wavefront Firehose Nozzle Config** section:
-  1. **CF API Hostname**: The VMware Tanzu API Hostname such as `api.YOUR-SYSTEM-DOMAIN`
-  1. **CF UAA Username/CF UAA Password**: Enter the username and password you created
-  in the <a href="#uaa-account">Create a UAA Admin User</a> step, above.
-  1. **CF API log stream URL**: The CF API log stream URL such as `https://log-stream.YOUR-SYSTEM-DOMAIN`. Required for the v2 Nozzle API.
   1. **VMware Tanzu foundation name**: A user friendly VMware Tanzu foundation name. This is included as a point tag on the metrics sent to Wavefront.
   1. **Skip SSL Verification**: Check to skip SSL validation. This is useful in non-production environments.
   1. **Advanced Nozzle Options**: Choose <code>No</code> for the default nozzle settings.

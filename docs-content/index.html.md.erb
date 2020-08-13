@@ -3,15 +3,15 @@ title: VMware Tanzu Observability by Wavefront Nozzle
 owner: Partners
 ---
 
-This documentation describes the Wavefront by VMware Nozzle integration for VMware Tanzu.
-Use this integration to monitor the health and performance of your VMware Tanzu deployment and apps using Wavefront.
+This documentation describes the VMware Tanzu Observability by Wavefront Nozzle integration for VMware Tanzu.
+Use this integration to monitor the health and performance of your VMware Tanzu deployment and apps using Tanzu Observability by Wavefront.
 
-The integration retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
-Additionally, the integration also provides a mechanism for developers to send app metrics to Wavefront.
+The integration retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and sends them to Tanzu Observability by Wavefront.
+Additionally, the integration also provides a mechanism for developers to send app metrics to Tanzu Observability by Wavefront.
 
 ## <a id='overview'></a>Overview
 
-Wavefront is a cloud-hosted service where you send your time-series (metric) data –
+Tanzu Observability by Wavefront is a cloud-hosted service where you send your time-series (metric) data –
 from Telegraf, CollectD, StatsD, JMX, Ruby’s logger, AWS, VMware Tanzu, etc.
 
 You can then perform arbitrary mathematical operations on any number of those series,
@@ -19,32 +19,32 @@ render charts to see anomalies or KPI dashboards, and ultimately create truly in
 
 The VMware Tanzu Observability by Wavefront Nozzle tile includes three components:
 
-  * A Wavefront Nozzle that retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and BOSH Health Monitor and sends them to Wavefront.
-  * A Wavefront Proxy that sends metrics to Wavefront in a secure, fast and reliable manner.
-  * A Wavefront Service Broker for VMware Tanzu that enables developers to send their app metrics to Wavefront.
+  * A VMware Tanzu Observability by Wavefront Nozzle that retrieves metrics about your VMware Tanzu deployment from the Loggregator Firehose and sends them to Tanzu Observability.
+  * A VMware Tanzu Observability by Wavefront Proxy that sends metrics to Tanzu Observability in a secure, fast and reliable manner.
+  * A VMware Tanzu Observability by Wavefront Service Broker for VMware Tanzu that enables developers to send their app metrics to Tanzu Observability.
 
-The Wavefront Service Broker for VMware Tanzu exposes service plans on the Marketplace.
+The VMware Tanzu Observability by Wavefront Service Broker for VMware Tanzu exposes service plans on the Marketplace.
 Developers can create service plan instances using Apps Manager or the Cloud Foundry Command Line Interface (cf CLI) and bind them to their apps.
 
-Creating a Wavefront Proxy for VMware Tanzu service instance and binding it to an app provides
+Creating a VMware Tanzu Observability by Wavefront Proxy for VMware Tanzu service instance and binding it to an app provides
 the routing information of a Wavefront proxy to the app.
-This lets developers send app metrics to Wavefront through the proxy.
+This lets developers send app metrics to Tanzu Observability through the proxy.
 
-Wavefront's integration with VMware Tanzu includes:
+Tanzu Observability by Wavefront’s integration with VMware Tanzu includes:
 
    * Summary visualization of key VMware Tanzu metrics
    * Built-in VMware Tanzu dashboards with configurable alerts
    * Ability to handle millions of metrics per second
 
-For more information about Wavefront by VMware, see https://wavefront.com.
+For more information about Tanzu Observability, see https://tanzu.vmware.com/observability.
 
 
 ## <a id='features'></a>Key Features
 
 VMware Tanzu Observability by Wavefront Nozzle includes the following key features:
 
-* Send metrics about your VMware Tanzu deployment to Wavefront.
-* Bind Wavefront to any app running on VMware Tanzu
+* Send metrics about your VMware Tanzu deployment to Tanzu Observability.
+* Bind Tanzu Observability to any app running on VMware Tanzu
 
 
 ## <a id="snapshot"></a>Product Snapshot
@@ -65,7 +65,7 @@ The following table provides version and version-support information about VMwar
     </tr>
     <tr>
         <td>Software component version</td>
-        <td>Wavefront Nozzle v1.2.1, Wavefront Proxy v5.7, and Wavefront Service Broker v0.9.5</td>
+        <td>VMware Tanzu Observability by Wavefront Nozzle v1.2.1, VMware Tanzu Observability by Wavefront Proxy v5.7, and VMware Tanzu Observability by Wavefront Service Broker v0.9.5</td>
     </tr>
     <tr>
         <td>Compatible Ops Manager version(s)</td>
@@ -91,13 +91,13 @@ The following table provides version and version-support information about VMwar
 VMware Tanzu Observability by Wavefront Nozzle has the following requirements:
 
 + Read-only administrative access to the Doppler Firehose and Cloud Controller.
-+ A Wavefront account and API token.
++ A Tanzu Observability account and API token.
 + A VMware Tanzu Quota with at least 8G of available memory.
 
 ## <a id="feedback"></a>Feedback
 
 If you have a feature request, questions, or information about a bug, please contact
-<a href="https://communities.vmware.com/community/vmtn/wavefront">Wavefront Support</a>.
+<a href="https://communities.vmware.com/community/vmtn/wavefront">Tanzu Observability Support</a>.
 
 ## <a id='license'></a>License
 

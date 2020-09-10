@@ -17,10 +17,12 @@ Create a UAA user with access to the Firehose and Cloud Controller:
    ```
    $ uaac target https://uaa.YOUR-SYSTEM-DOMAIN
    ```
+   YOUR-SYSTEM-DOMAIN can be found in the Opsman TAS tile on 'Domains' page.
 1. Run the following command to authenticate and obtain an access token for the admin client from the UAA server.
    ```
    $ uaac token client get admin -s ADMIN-CLIENT-CREDENTIALS-SECRET
    ```
+   ADMIN-CLIENT-CREDENTIALS-SECRET can be found in the Opsman TAS tile, on the Credentials tab under 'UAA', in "Admin Client Credentials"
 1. Create a Wavefront Nozzle user with the password of your choosing.
    ```
    $ uaac -t user add wavefront-nozzle --password PASSWORD --emails na

@@ -9,65 +9,77 @@ This topic describes how to install and configure VMware Tanzu Observability by 
 The VMware Tanzu Observability by Wavefront Nozzle requires that you have a Wavefront account with
 an API access token. If you need an account, contact <a href="mailto:sales@wavefront.com">Wavefront Sales</a>.
 
+##<a id='uaa-account'></a> Create a UAA User Account
+
+Create a UAA user with access to the Firehose and Cloud Controller:
+
+1. Target your system with the UAA CLI (UAAC):
+   ```
+   $ uaac target https://uaa.YOUR-SYSTEM-DOMAIN
+   ```
+   YOUR-SYSTEM-DOMAIN can be found in the Opsman TAS tile on 'Domains' page.
+1. Run the following command to authenticate and obtain an access token for the admin client from the UAA server.
+   ```
+   $ uaac token client get admin -s ADMIN-CLIENT-CREDENTIALS-SECRET
+   ```
+   ADMIN-CLIENT-CREDENTIALS-SECRET can be found in the Opsman TAS tile, on the Credentials tab under 'UAA', in "Admin Client Credentials"
+1. Create a Wavefront Nozzle user with the password of your choosing.
+   ```
+   $ uaac -t user add wavefront-nozzle --password PASSWORD --emails na
+   ```
+1. Add the user to the Cloud Controller Admin Read-Only group.
+   ```
+   uaac -t member add cloud_controller.admin_read_only wavefront-nozzle
+   ```
+1. Add the user to the Doppler Firehose group.
+   ```
+   $ uaac -t member add doppler.firehose wavefront-nozzle
+   ```
+
+For information about creating a UAA user, see
+[Creating and Managing Users with the UAA CLI](http://docs.pivotal.io/pivotalcf/adminguide/uaa-user-management.html).
 
 ##<a id='install'></a> Install and Configure VMware Tanzu Observability by Wavefront Nozzle in Ops Manager
 
-1. Download the product file from the [Pivotal Network](https://network.pivotal.io/).
+1. Download the product file from [Pivotal Network](https://network.pivotal.io/).
 
 1. Navigate to the Ops Manager Installation Dashboard and click **Import a Product** to upload the product file.
 
 1. Under the **Import a Product** button, click **+** next to the version number of VMware Tanzu Observability by Wavefront Nozzle.
 This adds the tile to your staging area.
 
-1. Click the newly added **Wavefront by VMware Nozzle for PCF** tile.
+1. Click the newly added **VMware Tanzu Observability by Wavefront Nozzle** tile.
 
 1. Click **Wavefront Proxy Config**.
    ![Configure Proxy](images/config_proxy.png)
 
-1. Enter the following in the **Wavefront Proxy Config** page:
-  1. **Wavefront Instance URL**: A URL, such as <code>https<span>:</span>//YOUR_INSTANCE.wavefront.com/api</code>.
-  1. **Wavefront API Token**: An API access token from the profile page on your Wavefront instance. To access the API token:
-      1. Click the gear icon on the top right in Wavefront.
-      1. Select your username.
+1. Enter the following in the **Wavefront Proxy Config** pane:
+  1. **Wavefront Instance URL**: A URL such as <code>https<span>:</span>//YOUR_INSTANCE.wavefront.com/api</code>
+  1. **Wavefront API Token**: An API access token from the profile page on your Wavefront instance.
+      1. Click the gear icon on the top right in Wavefront
+      1. Click your username
       1. Click the **API Access** tab for the API Token:
       ![API Access Token](images/wf_api_key.png)
-
-  1. **User friendly hostname**: A unique hostname for the proxy such as <code>DOMAIN-pcf-proxy</code>.
+  1. **User friendly hostname**: A unique hostname for the proxy such as <code>DOMAIN-pcf-proxy</code>
   1. **CF Quota Name**: A CF org quota with at least 20&nbsp;GB memory and a route and port available.
-1. Under **Custom Proxy Configuration**, select the proxy configuration to use. 
-  1. Choose **Default** for the default proxy settings.
-  1. You can optionally override the proxy configuration and preprocessor rules and use **Custom** settings.
-       ![Configure Nozzle](images/custom_proxy.png)
-      
-      1. Add the custom proxy configuration to the **Config** text box.
-        **Note:** This configuration will not consider some of the custom properties and directive 'server', 'hostname', 'token', 'pushListenerPorts', 'opentsdbPorts', 'idFile', 'buffer', and 'preprocessorConfigFile' will be ignored.
-	   1. In the **Preprocessor Rules** text box, enter the Wavefront preprocessor rules.
-	   For details, see [Configuring Wavefront Proxy Preprocessor Rules](https://docs.wavefront.com/proxies_preprocessor_rules.html).
-	   1. In the **Logs Ingestion Config** text box, enter the Wavefront log ingestion configuration.
-	   For details, see [Configuring the Wavefront Proxy to Ingest Log Data] (https://docs.wavefront.com/integrations_log_data.html#configuring-the-wavefront-proxy-to-ingest-log-data).
+  1. **Custom Proxy Configuration**: Choose <code>Default</code> for the default proxy settings.
+     You can optionally override the proxy configuration and preprocessor rules under <code>Custom</code> settings.
+
 1. Click **Save**.
 
 1. Click **Wavefront Firehose Nozzle Config**.
    ![Configure Nozzle](images/config_nozzle.png)
- 1. Enter the following on the **Wavefront Firehose Nozzle Config** page:
-   1. **PCF foundation name**: A user-friendly VMware Tanzu PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
-   1. **Skip SSL Verification**: Select to skip SSL validation. Use this option in non-production environments.
- 1. Under **Advanced Nozzle Options** select the settings to use. 
-   1. Select **No** for the default nozzle settings.
-   1. Select **Yes** and configure advanced nozzle options.
-      ![Advanced Nozzle Options](images/advanced-options.png)
-      1. **Metric White List**: Enter a comma-separated list of glob patterns. Only metrics with names matching the allowlist are reported. For details, see [Advanced Proxy Configuration] (https://docs.wavefront.com/proxies_configuring.html). 
-      1. **Metric Black List**: Enter a comma-separated list of glob patterns.  Metrics with names matching the blocklist are dropped. For details, see [Advanced Proxy Configuration] (https://docs.wavefront.com/proxies_configuring.html). 
-      1. **Number of Nozzle App Instances**: By default, only one firehose nozzle app instance will be deployed. You can enter a different number and deploy multiple firehose nozzle app instances.
-      1. **Nozzle App Instance Memory**: By default, 2 GB of memory are allocated. You can increase the number.
-        **Note**: Enter an integer followed by either M (for megabytes), or G (for gigabytes). For example, 2G, 512M, and so on.
-      1. **Number of Nozzle Workers**: The number of concurrent workers for each firehose nozzle app instance.
-      1. **Size of the Nozzle Ingress Queue**: The maximum number of events allowed to store in the firehose nozzle queue.
-      1. **Prefix of all metrics**: A prefix that will be added to all the metrics. The default is <code>pcf</code>. 
-	     **Note**: If you change the prefix, the out-of-the-box dashboards may fail to load.
-      1. **Custom Proxy Address**: Allows you to provide the address of an externally deployed Wavefront proxy.
-      1. **Custom Proxy Port**: Allows you to provide the proxy port of an externally deployed Wavefront proxy.
-      1. **Use Legacy Mode**: Allows you to use a legacy version of the API.
+
+1. Enter the following information on the **Wavefront Firehose Nozzle Config** page:
+  1. **CF API Hostname**: The VMware Tanzu API Hostname such as `api.YOUR-SYSTEM-DOMAIN`.
+  1. **CF UAA Username/CF UAA Password**: The username and password that you created
+  in the <a href="#uaa-account">Create a UAA Admin User</a> step.
+  1. **CF API log stream URL**: The CF API log stream URL such as `https://log-stream.YOUR-SYSTEM-DOMAIN`. Required for the v2 Nozzle API.
+  1. **VMware Tanzu foundation name**: A user-friendly foundation name. This is included as a point tag on the metrics sent to Wavefront.
+  1. **Skip SSL Verification**: Select to skip SSL validation. Use this option in non-production environments.
+  1. **Advanced Nozzle Options**: 
+	 1. Select <code>No</code> for the default nozzle settings.
+     1. Optionally, selecy <code>Yes</code> and configure the advanced nozzle options such as filters, v1 API mode, number of nozzle instances etc.
 
 1. Click **Save**.
 
@@ -78,5 +90,5 @@ Follow the steps below to enable developers to send app metrics to the Wavefront
 
 1. To provision a **wavefront-proxy** service instance: `cf create-service wavefront-proxy standard SERVICE_INSTANCE_NAME`.
 1. To bind apps to the service instance: `cf bind-service APP_NAME SERVICE_INSTANCE_NAME`.
-1. For information about how apps can send metrics to the Wavefront proxy,
+1. For information about how apps can send metrics to the Wavefront Proxy,
    see the [cloud-foundry-sampleapp](https://github.com/wavefrontHQ/cloud-foundry-sampleapp).

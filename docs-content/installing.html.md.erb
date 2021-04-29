@@ -7,12 +7,13 @@ owner: Partners
 
 This topic describes how to install and configure VMware Tanzu Observability by Wavefront Nozzle.
 
-##<a id='wf-account'></a> Create a Wavefront Account
+## <a id="wf-account"></a> Create a Wavefront Account
+
 The VMware Tanzu Observability by Wavefront Nozzle requires that you have a Wavefront account with
 an API access token. If you need an account, contact <a href="mailto:sales@wavefront.com">Wavefront Sales</a>.
 
 
-##<a id='install'></a> Install and Configure VMware Tanzu Observability by Wavefront Nozzle in Ops Manager
+## <a id="install"></a> Install and Configure VMware Tanzu Observability by Wavefront Nozzle in Ops Manager
 
 1. Download the product file from the [Pivotal Network](https://network.pivotal.io/).
 
@@ -58,7 +59,7 @@ This adds the tile to your staging area.
    1. Select **No** for the default nozzle settings.
    1. Select **Yes** and configure advanced nozzle options.
       ![Advanced Nozzle Options](images/advanced-options.png)
-      1. **Metric White List**: Enter a comma-separated allowlist of glob patterns. Only metrics with names matching the allowlist are reported.
+      1. **Metric White List**: Enter a comma-separated allowlist of glob patterns. Only metrics with names matching the allowlist are reported. To control the flow of the metrics and ingest only the high priority metrics, you can use the filters described in the [Configuring Filters](#filters) section.
       1. **Metric Black List**: Enter a comma-separated blocklist of glob patterns. Metrics with names matching the blocklist are dropped.
       1. **Number of Nozzle App Instances**: By default, only one firehose nozzle app instance will be deployed. You can enter a different number and deploy multiple firehose nozzle app instances.
       1. **Nozzle App Instance Memory**: By default, 2 GB of memory are allocated. You can increase the number.
@@ -75,10 +76,52 @@ This adds the tile to your staging area.
 
 1. Return to the Ops Manager Installation Dashboard and click **Apply changes** to install VMware Tanzu Observability by Wavefront Nozzle tile.
 
-##<a id='marketplace'></a> Configure Service Instance for Wavefront Service Broker for VMware Tanzu
+## <a id="marketplace"></a> Configure Service Instance for Wavefront Service Broker for VMware Tanzu
+
 Follow the steps below to enable developers to send app metrics to the Wavefront Proxy:
 
 1. To provision a **wavefront-proxy** service instance: `cf create-service wavefront-proxy standard SERVICE_INSTANCE_NAME`.
 1. To bind apps to the service instance: `cf bind-service APP_NAME SERVICE_INSTANCE_NAME`.
 1. For information about how apps can send metrics to the Wavefront proxy,
    see the [cloud-foundry-sampleapp](https://github.com/wavefrontHQ/cloud-foundry-sampleapp).
+
+## <a id="filters"></a>Configuring Filters
+
+By default, the nozzle does not filter any metrics and forwards all metrics to the Wavefront service. If you want to control the flow of the metrics and ingest only part of the metrics, provide a comma-separated list of glob patterns in the **Metric White List** text box, and only the matching metrics will be allowed. 
+
+Here’s the list of services and their filters.
+
+* **MySQL**
+
+  ```
+  pcf*.mysql*{/,}**
+  ```
+* **Redis**
+  
+  ```
+  pcf.{p.,p-}redis.*
+  ```
+
+* **RabbitMQ**
+  
+  ```
+  pcf.{p.,p-}rabbitmq*{/,}**
+  ```
+* **KPIs**
+
+  ```  
+  pcf.*{/,/p.,}{mysql/,}{available.boolean,system/persistent_disk_used_percent,system/ephemeral_disk_used_percent,performance/cpu_utilization_percent,variables/max_connections,net/max_used_connections,performance/queries_delta,galera/wsrep_ready,galera/wsrep_cluster_size,galera/wsrep_cluster_status,AuctioneerLRPAuctionsFailed,AuctioneerFetchStatesDuration,AuctioneerTaskAuctionsFailed,LockHeld,bbs.LRPsExtra,bbs.LRPsMissing,bbs.LRPsRunning,bbs.Domain.cf-apps,bbs.RequestLatency,bbs.CrashedActualLRPs,bbs.LockHeld,bbs.BBSMasterElected,bbs.ConvergenceLRPDuration,rep.CapacityRemainingMemory,rep.CapacityRemainingDisk,rep.CapacityRemainingContainers,rep.CapacityTotalContainers,rep.CapacityTotalDisk,rep.RepBulkSyncDuration,rep.CapacityTotalMemory,rep.GardenHealthCheckFailed,locket.ActiveLocks,locket.ActivePresences,gorouter.file_descriptors,gorouter.backend_exhausted_conn,gorouter.total_requests,gorouter.latency.ms,gorouter.latency.uaa,gorouter.ms_since_last_registry_update,gorouter.total_routes,gorouter.responses.5xx,gorouter.bad_gateways,route_emitter.RouteEmitterSyncDuration,uaa.requests.global.completed.count,uaa.server.inflight.count,system.healthy,system.mem.percent,system.cpu.user,system.disk}*
+
+  ```
+
+* **Self-Monitoring**
+ 
+  ```  
+  pcf.{container.rep,cc,gorouter}.{cpu?percentage,memory?bytes,memory_bytes_quota,disk?bytes,disk_bytes_quota,disk_quota.bytes,memory_quota.bytes,requests.completed.counter,requests.CloudController.total}</code></td>
+  
+  ```
+
+  You can apply the self-monitoring filter in a combination with other filters.
+
+**Important**: If you plan to assign a custom metric prefix, make sure to update the filters.
+

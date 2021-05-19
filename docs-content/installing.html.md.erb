@@ -59,11 +59,9 @@ This adds the tile to your staging area.
    1. Select **No** for the default nozzle settings.
    1. Select **Yes** and configure advanced nozzle options.
       ![Advanced Nozzle Options](images/advanced-options.png)
-      1. **Metric White List**: Enter a comma-separated allowlist of glob patterns.
-         Only metrics with names matching the allowlist are reported.
-         To control the flow of the metrics and ingest only the high priority metrics,
-         use the filters. For examples of filters, see [Filters for Services](#filters) below.
-      1. **Metric Black List**: Enter a comma-separated blocklist of glob patterns. Metrics with names matching the blocklist are dropped.
+      1. **Metrics White List**: Enter a comma-separated allowlist of glob patterns. Only metrics with names matching the allowlist are reported.
+      1. **Metrics Black List**: Enter a comma-separated blocklist of glob patterns. Metrics with names matching the blocklist are dropped.
+      1. **Metrics to Histograms List**: Enter a comma-separated allowlist of glob patterns to control the flow of high velocity metrics. Only metrics with names matching the allowlist are converted Histograms distribution.	
       1. **Number of Nozzle App Instances**: By default, only one firehose nozzle app instance will be deployed. You can enter a different number and deploy multiple firehose nozzle app instances.
       1. **Nozzle App Instance Memory**: By default, 2 GB of memory are allocated. You can increase the number.
         **Note**: Enter an integer followed by either M (for megabytes), or G (for gigabytes). For example, 2G, 512M, and so on.
@@ -73,6 +71,7 @@ This adds the tile to your staging area.
 	     **Note**: If you change the prefix, the out-of-the-box dashboards may fail to load.
       1. **Custom Proxy Address**: Allows you to provide the address of an externally deployed Wavefront proxy.
       1. **Custom Proxy Port**: Allows you to provide the proxy port of an externally deployed Wavefront proxy.
+      1. **Custom Histogram to Minute Proxy Port**: Provide the Histogram port of the custom proxy to use and send the metrics listed in the **Metrics to Histograms** to this port.
       1. **Use Legacy Mode**: Allows you to use a legacy version of the API.
 
 1. Click **Save**.
@@ -88,50 +87,3 @@ Follow the steps below to enable developers to send app metrics to the Wavefront
 1. For information about how apps can send metrics to the Wavefront proxy,
    see the [cloud-foundry-sampleapp](https://github.com/wavefrontHQ/cloud-foundry-sampleapp).
 
-## <a id="filters"></a>Filters for Services
-
-By default, the nozzle does not filter any metrics and forwards all metrics to the Wavefront service.
-To control the flow of the metrics and ingest only part of the metrics,
-provide a comma-separated list of glob patterns in the **Metric White List** text box.
-Only the matching metrics will be allowed.
-
-<p class="note">
-   <strong>Note:</strong>
-           If you assign a custom metric prefix, you must add the prefix to the default filters below.
-</p>
-
-Below is a list of services and their filters:
-
-
-<table class="nice">
-<col width="8%">
-<col width="50%">
-	<th>Service</th>
-	<th>Filter</th>
-	<tr>
-		<td>MySQL</td>
-		<td><code>pcf*.mysql*{/,}**</code></td>
-	</tr>
-	<tr>
-		<td>Redis</td>
-		<td><code>pcf.{p.,p-}redis.*</code></td>
-	</tr>
-	<tr>
-		<td>RabbitMQ</td>
-		<td><code>pcf.{p.,p-}rabbitmq*{/,}**</code></td>
-	</tr>
-	<tr>
-		<td>KPIs</td>
-		<td><code>pcf.*{/,/p.,}{mysql/,}{available.boolean,system/persistent_disk_used_percent,system/ephemeral_disk_used_percent,performance/cpu_utilization_percent,variables/max_connections,net/max_used_connections,performance/queries_delta,galera/wsrep_ready,galera/wsrep_cluster_size,galera/wsrep_cluster_status,AuctioneerLRPAuctionsFailed,AuctioneerFetchStatesDuration,AuctioneerTaskAuctionsFailed,LockHeld,bbs.LRPsExtra,bbs.LRPsMissing,bbs.LRPsRunning,bbs.Domain.cf-apps,bbs.RequestLatency,bbs.CrashedActualLRPs,bbs.LockHeld,bbs.BBSMasterElected,bbs.ConvergenceLRPDuration,rep.CapacityRemainingMemory,rep.CapacityRemainingDisk,rep.CapacityRemainingContainers,rep.CapacityTotalContainers,rep.CapacityTotalDisk,rep.RepBulkSyncDuration,rep.CapacityTotalMemory,rep.GardenHealthCheckFailed,locket.ActiveLocks,locket.ActivePresences,gorouter.file_descriptors,gorouter.backend_exhausted_conn,gorouter.total_requests,gorouter.latency.ms,gorouter.latency.uaa,gorouter.ms_since_last_registry_update,gorouter.total_routes,gorouter.responses.5xx,gorouter.bad_gateways,route_emitter.RouteEmitterSyncDuration,uaa.requests.global.completed.count,uaa.server.inflight.count,system.healthy,system.mem.percent,system.cpu.user,system.disk}*
-</code></td>
-	</tr>
-	<tr>
-		<td>Self-Monitoring</td>
-		<td><code>pcf.{container.rep,cc,gorouter}.{cpu?percentage,memory?bytes,memory_bytes_quota,disk?bytes,disk_bytes_quota,disk_quota.bytes,memory_quota.bytes,requests.completed.counter,requests.CloudController.total}
-</code>
-<p class="note">
-   <strong>Note:</strong> You can apply the self-monitoring filter in a combination with other filters.
-</p>
-                 </td>
-	</tr>
-</table>

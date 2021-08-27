@@ -55,36 +55,37 @@ This adds the tile to your staging area.
 1. Click **Wavefront Firehose Nozzle Config**.
    ![Configure Nozzle](images/config_nozzle.png)
   1. Enter the following on the **Wavefront Firehose Nozzle Config** page:
-      1. **PCF foundation name**: A user-friendly VMware Tanzu PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
-      1. **Skip SSL Verification**: Select to skip SSL validation. Use this option in non-production environments.
+       1. **PCF foundation name**: A user-friendly VMware Tanzu PCF foundation name. This is included as a point tag on the metrics sent to Wavefront.
+       1. **Skip SSL Verification**: Select to skip SSL validation. Use this option in non-production environments.
   1. Under **Advanced Nozzle Options** select the settings to use. 
       * Select **No** for the default nozzle settings.
       * Select **Yes** and configure advanced nozzle options.
         ![Advanced Nozzle Options](images/advanced-options.png)
-        1. **Metrics White List**: Enter a comma-separated allowlist of glob patterns. Only metrics with names matching the allowlist are reported.
-        1. **Metrics Black List**: Enter a comma-separated blocklist of glob patterns. Metrics with names matching the blocklist are dropped.
-        1. **Metrics to Histograms List**: Enter a comma-separated allowlist of glob patterns to control the flow of high velocity metrics. Only metrics with names matching the allowlist are converted Histograms distribution.	
-        1. **Number of Nozzle App Instances**: By default, only one firehose nozzle app instance will be deployed. You can enter a different number and deploy multiple firehose nozzle app instances.
-        1. **Nozzle App Instance Memory**: By default, 2 GB of memory are allocated. You can increase the number.
-          <p class="note">
-            <strong>Note:</strong> Enter an integer followed by either M (for megabytes), or G (for gigabytes). For example, 2G, 512M, and so on.
-          </p>
-        1. **Number of Nozzle Workers**: The number of concurrent workers for each firehose nozzle app instance.
-        1. **Size of the Nozzle Ingress Queue**: The maximum number of events allowed to store in the firehose nozzle queue.
-        1. **Prefix of all metrics**: A prefix that will be added to all the metrics. The default is <code>pcf</code>.<br>
-	  <p class="note">
-            <strong>Note:</strong> If you change the prefix, the out-of-the-box dashboards may fail to load.
-          </p>
-        1. **Custom Proxy Address**: Allows you to provide the address of an externally deployed Wavefront proxy.<br>
-	  <p class="note warning">
-            <strong>Important:</strong> To use a custom proxy, you must make sure that the ports <code>pushListenerPorts</code> and 
-            <code>histogramMinuteListenerPorts</code> are enabled in the custom proxy configuration in the <code>wavefront.conf</code> file. 
-            Provide the values of these ports in the <strong>Custom Proxy Port</strong> and <strong>Custom Histogram to Minute Proxy Port</strong> text boxes.
-          </p>
-        1. **Custom Proxy Port**: Allows you to provide the proxy port of an externally deployed Wavefront proxy.<br>
-        You can find the custom proxy port in the <code>wavefront.conf</code> file, listed as a value of the <code>pushListenerPorts</code>. The default port value is 2878.
-        1. **Custom Histogram to Minute Proxy Port**: Provide the Histogram port of the custom proxy to use and send the metrics listed in the **Metrics to Histograms** to this port.<br          You can find the histogram port in the <code>wavefront.conf</code> file, listed as a value of the property <code>histogramMinuteListenerPorts</code>. The default port value is 40001.
-        1. **Use Legacy Mode**: Allows you to use a legacy version of the API.
+          1. **Metrics White List**: Enter a comma-separated allowlist of glob patterns. Only metrics with names matching the allowlist are reported.
+          1. **Metrics Black List**: Enter a comma-separated blocklist of glob patterns. Metrics with names matching the blocklist are dropped.
+          1. **Metrics to Histograms List**: Enter a comma-separated allowlist of glob patterns to control the flow of high velocity metrics. Only metrics with names matching the allowlist are converted Histograms distribution.	
+          1. **Number of Nozzle App Instances**: By default, only one firehose nozzle app instance will be deployed. You can enter a different number and deploy multiple firehose nozzle app instances.
+          1. **Nozzle App Instance Memory**: By default, 2 GB of memory are allocated. You can increase the number.
+            <p class="note">
+              <strong>Note:</strong> Enter an integer followed by either M (for megabytes), or G (for gigabytes). For example, 2G, 512M, and so on.
+            </p>
+          1. **Number of Nozzle Workers**: The number of concurrent workers for each firehose nozzle app instance.
+          1. **Size of the Nozzle Ingress Queue**: The maximum number of events allowed to store in the firehose nozzle queue.
+          1. **Prefix of all metrics**: A prefix that will be added to all the metrics. The default is <code>pcf</code>.<br>
+	    <p class="note">
+              <strong>Note:</strong> If you change the prefix, the out-of-the-box dashboards may fail to load.
+            </p>
+          1. **Custom Proxy Address**: Allows you to provide the address of an externally deployed Wavefront proxy.<br>
+	    <p class="note warning">
+              <strong>Important:</strong> To use a custom proxy, you must make sure that the ports <code>pushListenerPorts</code> and 
+              <code>histogramMinuteListenerPorts</code> are enabled in the custom proxy configuration in the <code>wavefront.conf</code> file. 
+              Provide the values of these ports in the <strong>Custom Proxy Port</strong> and <strong>Custom Histogram to Minute Proxy Port</strong> text boxes.
+            </p>
+          1. **Custom Proxy Port**: Allows you to provide the proxy port of an externally deployed Wavefront proxy.<br>
+          You can find the custom proxy port in the <code>wavefront.conf</code> file, listed as a value of the <code>pushListenerPorts</code>. The default port value is 2878.
+          1. **Custom Histogram to Minute Proxy Port**: Provide the Histogram port of the custom proxy to use and send the metrics listed in the **Metrics to Histograms** to this port.<br>
+          You can find the histogram port in the <code>wavefront.conf</code> file, listed as a value of the property <code>histogramMinuteListenerPorts</code>. The default port value is 40001.
+          1. **Use Legacy Mode**: Allows you to use a legacy version of the API.
 
 1. Click **Save**.
 

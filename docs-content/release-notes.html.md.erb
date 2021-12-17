@@ -12,6 +12,15 @@ These are release notes for VMware Tanzu Observability by Wavefront Nozzle.
 **Release Date:** December 15, 2021
 
 * Follow up fix to completely close the loop on prior vulnerability.
+* For releases prior to 3.0.4, there is a workaround available to addres Log4J vulnerabilities without upgrading.
+  * Apache foundation gives this guidance:
+
+    ```
+    In any release other than 2.16.0, you may remove the JndiLookup class from the classpath: zip -q -d log4j-core-*.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
+    ```
+
+  * To execute this against our tile, you'll be using a slightly different command, the class file to be removed is built into `wavefront-proxy.jar`, so you would change the command to `zip -q -d wavefront-proxy.jar org/apache/logging/log4j/core/lookup/JndiLookup.class`
+  * You'll also need to get access to the .jar inside of the .pivotal. The path to the .jar inside of the .pivotal file is `releases/wavefront-proxy-${VERSION}.tgz/packages/wavefront_proxy_pkg.tgz/wavefront-proxy.jar`
 
 ##<a id="3-0-3"></a> v3.0.3
 

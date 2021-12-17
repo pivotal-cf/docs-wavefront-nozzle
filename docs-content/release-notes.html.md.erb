@@ -10,22 +10,59 @@ These are release notes for VMware Tanzu Observability by Wavefront Nozzle.
 
 **Release Date:** December 15, 2021
 
-* Follow up fix to completely close the loop on prior vulnerability.
-* For releases prior to 3.0.4, there is a workaround available to addres Log4J vulnerabilities without upgrading.
-  * Apache foundation gives this guidance:
+* Addresses [CVE 2021-44228](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-44228).
+
+
+
+## Workaround for Log4j CVE
+
+If you are unable to upgrade VMware Tanzu Observability by Wavefront Nozzle to v3.0.4,
+complete the workaround described below to address Log4j vulnerabilities.
+
+This recommendation is based on this guidance from the Apache Software Foundation:
+
+```
+In any release other than 2.16.0, you may remove the JndiLookup class from the classpath:
+zip -q -d log4j-core-*.jar org/apache/logging/log4j/core/lookup/JndiLookup.class`
+```
+
+For the VMware Tanzu Observability by Wavefront Nozzle tile, the command is slightly different
+from the guidance because the class file to be removed is built into `wavefront-proxy.jar`.
+
+### Procedure
+
+To remove the JndiLookup class from the classpath from the VMware Tanzu Observability by Wavefront Nozzle tile:
+
+1. Run:
 
     ```
-    In any release other than 2.16.0, you may remove the JndiLookup class from the classpath: zip -q -d log4j-core-*.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
+    zip -q -d wavefront-proxy.jar org/apache/logging/log4j/core/lookup/JndiLookup.class
     ```
 
-  * To execute this against our tile, you'll be using a slightly different command, the class file to be removed is built into `wavefront-proxy.jar`, so you would change the command to `zip -q -d wavefront-proxy.jar org/apache/logging/log4j/core/lookup/JndiLookup.class`
-  * You'll also need to get access to the .jar inside of the .pivotal. The path to the .jar inside of the .pivotal file is `releases/wavefront-proxy-${VERSION}.tgz/packages/wavefront_proxy_pkg.tgz/wavefront-proxy.jar`
+1. Get access to the JAR file inside the `.pivotal` by running:
+
+    ```
+    SOMETHING releases/wavefront-proxy-${VERSION}.tgz/packages/wavefront_proxy_pkg.tgz/wavefront-proxy.jar
+    ```
+
+    Where is `VERSION` is the version of the VMware Tanzu Observability by Wavefront Nozzle tile you have installed???
+
+    For example:
+
+    <pre class="terminal">$ SOMETHING releases/wavefront-proxy-${3.0.3}.tgz/packages/wavefront_proxy_pkg.tgz/wavefront-proxy.jar
+    </pre>
+
 
 ##<a id="3-0-3"></a> v3.0.3
 
 **Release Date:** December 11, 2021
 
 * Security fix for a vulnerability.
+
+<p class="note">
+   <strong>Note:</strong> This release, v3.0.3, is no longer recommended.
+   Upgrade to v3.0.4 instead.
+</p>
 
 ##<a id="3-0-2"></a> v3.0.2
 

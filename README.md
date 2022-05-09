@@ -8,6 +8,7 @@
 | Branch name | Use for… |
 |-------------| -------|
 | main      | "edge" branch where new content can be staged and reviewed. Publishes to https://docs-pcf-staging.sc2-04-pcf1-apps.oc.vmware.com/wavefront-nozzle/3-n/ |
+| 4.x         | v4.0.0 placeholder page. Publishes to https://docs-pcf-staging.sc2-04-pcf1-apps.oc.vmware.com/wavefront-nozzle/4-x/ and https://docs.pivotal.io/wavefront-nozzle/4-x/ |
 | 3.x         | v3.0.0 and later minors. Publishes to https://docs-pcf-staging.sc2-04-pcf1-apps.oc.vmware.com/wavefront-nozzle/3-x/ and https://docs.pivotal.io/wavefront-nozzle/3-x/ |
 | 2.x        | v2.1.3, v2.1.2, v2.1.0, and v2.0.0, v2.1.0, v2.1.2, v2.1.3 and later minors. Publishes to https://docs-pcf-staging.sc2-04-pcf1-apps.oc.vmware.com/wavefront-nozzle/2-x/ and https://docs.pivotal.io/wavefront-nozzle/2-x/ |
 
